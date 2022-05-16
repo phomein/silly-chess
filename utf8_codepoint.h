@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <uchar.h>  // char32_t
+#include <cstdint>  // char32_t
 
 using std::ostream;
 using std::istream;
