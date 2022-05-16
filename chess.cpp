@@ -47,15 +47,8 @@ Team play_one_chess_game(Player& white_player, Player& black_player) {
 }
 
 int main(int argc, const char *argv[]) {
-  CheckMateCapturePlayer white_player(WHITE);
-  CapturePlayer black_player(BLACK);
-  int white_wins = 0, black_wins = 0;
-  while (true) {
-    Team winner = play_one_chess_game(white_player, black_player);
-    if (winner == WHITE) ++white_wins;
-    else ++black_wins;
-    if ((white_wins + black_wins) % 1000 == 0)
-      cerr << static_cast<double>(white_wins) / (white_wins + black_wins) << "  " << white_wins + black_wins << endl;
-  }
+  HumanPlayer white_player(WHITE);
+  CheckMateCapturePlayer black_player(BLACK);
+  play_one_chess_game(white_player, black_player);
   return 0;
 }
