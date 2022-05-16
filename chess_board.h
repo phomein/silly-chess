@@ -75,6 +75,4 @@ public:
   friend ostream& operator<<(ostream& os, const Board& board);
 };
 
-ostream& operator<<(ostream& os, const Board& board);
-
 #endif  // _CHESS_BOARD_H_
