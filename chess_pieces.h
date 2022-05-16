@@ -89,19 +89,19 @@ public:
 
 // `extern` is used to declare the variables here, without defining them
 // The actual variables/objects are defined in the corresponding .cpp file.
-extern EmptySpace EMPTY_SPACE;
-extern King WHITE_KING;
-extern King BLACK_KING;
-extern Queen WHITE_QUEEN;
-extern Queen BLACK_QUEEN;
-extern Bishop WHITE_BISHOP;
-extern Bishop BLACK_BISHOP;
-extern Knight WHITE_KNIGHT;
-extern Knight BLACK_KNIGHT;
-extern Rook WHITE_ROOK;
-extern Rook BLACK_ROOK;
-extern Pawn WHITE_PAWN;
-extern Pawn BLACK_PAWN;
+extern const EmptySpace EMPTY_SPACE;
+extern const King WHITE_KING;
+extern const King BLACK_KING;
+extern const Queen WHITE_QUEEN;
+extern const Queen BLACK_QUEEN;
+extern const Bishop WHITE_BISHOP;
+extern const Bishop BLACK_BISHOP;
+extern const Knight WHITE_KNIGHT;
+extern const Knight BLACK_KNIGHT;
+extern const Rook WHITE_ROOK;
+extern const Rook BLACK_ROOK;
+extern const Pawn WHITE_PAWN;
+extern const Pawn BLACK_PAWN;
 extern const map<UTF8CodePoint, const ChessPiece*> ALL_CHESS_PIECES;
 
 #endif  // _CHESS_PIECES_H_

@@ -146,19 +146,19 @@ void Pawn::get_moves(const Board& board, Cell from, vector<Move>& moves) const {
 }
 
 
-EmptySpace EMPTY_SPACE;
-King WHITE_KING(U'♔', WHITE);
-King BLACK_KING(U'♚', BLACK);
-Queen WHITE_QUEEN(U'♕', WHITE);
-Queen BLACK_QUEEN(U'♛', BLACK);
-Bishop WHITE_BISHOP(U'♗', WHITE);
-Bishop BLACK_BISHOP(U'♝', BLACK);
-Knight WHITE_KNIGHT(U'♘', WHITE);
-Knight BLACK_KNIGHT(U'♞', BLACK);
-Rook WHITE_ROOK(U'♖', WHITE);
-Rook BLACK_ROOK(U'♜', BLACK);
-Pawn WHITE_PAWN(U'♙', WHITE, 1);
-Pawn BLACK_PAWN(U'♟', BLACK, -1);
+const EmptySpace EMPTY_SPACE;
+const King WHITE_KING(U'♔', WHITE);
+const King BLACK_KING(U'♚', BLACK);
+const Queen WHITE_QUEEN(U'♕', WHITE);
+const Queen BLACK_QUEEN(U'♛', BLACK);
+const Bishop WHITE_BISHOP(U'♗', WHITE);
+const Bishop BLACK_BISHOP(U'♝', BLACK);
+const Knight WHITE_KNIGHT(U'♘', WHITE);
+const Knight BLACK_KNIGHT(U'♞', BLACK);
+const Rook WHITE_ROOK(U'♖', WHITE);
+const Rook BLACK_ROOK(U'♜', BLACK);
+const Pawn WHITE_PAWN(U'♙', WHITE, 1);
+const Pawn BLACK_PAWN(U'♟', BLACK, -1);
 const map<UTF8CodePoint, const ChessPiece*> ALL_CHESS_PIECES = {
   {EMPTY_SPACE.utf8_codepoint, &EMPTY_SPACE},
   {WHITE_KING.utf8_codepoint, &WHITE_KING},
