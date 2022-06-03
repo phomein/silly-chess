@@ -365,4 +365,8 @@ const map<UTF8CodePoint, const ChessPiece *> ALL_CHESS_PIECES = {
     {BLACK_ROOK.utf8_codepoint, &BLACK_ROOK},
     {WHITE_PAWN.utf8_codepoint, &WHITE_PAWN},
     {BLACK_PAWN.utf8_codepoint, &BLACK_PAWN},
+    {WHITE_COURAGE.utf8_codepoint, &WHITE_COURAGE},
+    {BLACK_COURAGE.utf8_codepoint, &BLACK_COURAGE},
+    {WHITE_BATMAN.utf8_codepoint, &WHITE_BATMAN},
+    {BLACK_BATMAN.utf8_codepoint, &BLACK_BATMAN},
 };
