@@ -1,2 +1,11 @@
-a.out
-.vscode
+# ignore all
+*
+
+# unignore all with extensions
+!*.*
+
+# unignore dirs
+!*/
+
+**/*.dSYM
+**/*.bin

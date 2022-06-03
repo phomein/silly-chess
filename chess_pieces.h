@@ -13,78 +13,103 @@ using std::map;
 using std::ostream;
 using std::vector;
 
-class ChessPiece {
+class ChessPiece
+{
 public:
-  const UTF8CodePoint utf8_codepoint;
-  const Team team;
+    const UTF8CodePoint utf8_codepoint;
+    const Team team;
 
-  ChessPiece(UTF8CodePoint cp, Team team) : utf8_codepoint(cp), team(team) {}
+    ChessPiece(UTF8CodePoint cp, Team team) : utf8_codepoint(cp), team(team) {}
 
-  virtual ~ChessPiece() {}
+    virtual ~ChessPiece() {}
 
-  virtual void get_moves(const Board& board, Cell from, vector<Move>& moves) const = 0;
-  virtual void make_move(Board& board, Move move) const = 0;
+    virtual void get_moves(const Board& board, Cell from, vector<Move>& moves) const = 0;
+    virtual void make_move(Board& board, Move move) const = 0;
 
-  bool is_opposite_team(const ChessPiece& other) const;
+    bool is_opposite_team(const ChessPiece& other) const;
 
-  bool operator==(const ChessPiece& other) const;
-  bool operator!=(const ChessPiece& other) const;
+    bool operator==(const ChessPiece& other) const;
+    bool operator!=(const ChessPiece& other) const;
 
-  friend ostream& operator<<(ostream& os, const ChessPiece& p);
+    friend ostream& operator<<(ostream& os, const ChessPiece& p);
 };
 
 ostream& operator<<(ostream& os, const ChessPiece& p);
 
-class EmptySpace : public ChessPiece {
+class EmptySpace : public ChessPiece
+{
 public:
-  EmptySpace() : ChessPiece('.', NONE) {}
-  void get_moves(const Board& board, Cell from, vector<Move>& moves) const override {}
-  void make_move(Board& board, Move move) const override {}
+    EmptySpace() : ChessPiece('.', NONE) {}
+    void get_moves(const Board& board, Cell from, vector<Move>& moves) const override {}
+    void make_move(Board& board, Move move) const override {}
 };
 
-
-class SimpleChessPiece : public ChessPiece {
+class SimpleChessPiece : public ChessPiece
+{
 public:
-  SimpleChessPiece(UTF8CodePoint cp, Team team) : ChessPiece(cp, team) {}
-  void make_move(Board& board, Move move) const;
+    SimpleChessPiece(UTF8CodePoint cp, Team team) : ChessPiece(cp, team) {}
+    void make_move(Board& board, Move move) const;
 };
 
-class King : public SimpleChessPiece {
+class King : public SimpleChessPiece
+{
 public:
-  King(UTF8CodePoint cp, Team team) : SimpleChessPiece(cp, team) {}
-  void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
+    King(UTF8CodePoint cp, Team team) : SimpleChessPiece(cp, team) {}
+    void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
 };
 
-class Queen : public SimpleChessPiece {
+class Queen : public SimpleChessPiece
+{
 public:
-  Queen(UTF8CodePoint cp, Team team) : SimpleChessPiece(cp, team) {}
-  void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
+    Queen(UTF8CodePoint cp, Team team) : SimpleChessPiece(cp, team) {}
+    void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
 };
 
-class Bishop : public SimpleChessPiece {
+class Bishop : public SimpleChessPiece
+{
 public:
-  Bishop(UTF8CodePoint cp, Team team) : SimpleChessPiece(cp, team) {}
-  void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
+    Bishop(UTF8CodePoint cp, Team team) : SimpleChessPiece(cp, team) {}
+    void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
 };
 
-class Knight : public SimpleChessPiece {
+class Knight : public SimpleChessPiece
+{
 public:
-  Knight(UTF8CodePoint cp, Team team) : SimpleChessPiece(cp, team) {}
-  void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
+    Knight(UTF8CodePoint cp, Team team) : SimpleChessPiece(cp, team) {}
+    void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
 };
 
-class Rook : public SimpleChessPiece {
+class Rook : public SimpleChessPiece
+{
 public:
-  Rook(UTF8CodePoint cp, Team team) : SimpleChessPiece(cp, team) {}
-  void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
+    Rook(UTF8CodePoint cp, Team team) : SimpleChessPiece(cp, team) {}
+    void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
 };
 
-class Pawn : public SimpleChessPiece {
-  int y_move_steps;
+class Pawn : public SimpleChessPiece
+{
+    int y_move_steps;
+
 public:
-  Pawn(UTF8CodePoint cp, Team team, int y_move_steps)
-    : SimpleChessPiece(cp, team), y_move_steps(y_move_steps) {}
-  void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
+    Pawn(UTF8CodePoint cp, Team team, int y_move_steps)
+        : SimpleChessPiece(cp, team), y_move_steps(y_move_steps) {}
+    void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
+};
+
+class CowardlyDog : public SimpleChessPiece
+{
+    int y_move_steps;
+
+public:
+    CowardlyDog(UTF8CodePoint cp, Team team, int y_move_steps) : SimpleChessPiece(cp, team), y_move_steps(y_move_steps) {}
+    void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
+};
+
+class DarkKnight : public SimpleChessPiece
+{
+public:
+    DarkKnight(UTF8CodePoint cp, Team team) : SimpleChessPiece(cp, team) {}
+    void get_moves(const Board& board, Cell from, vector<Move>& moves) const override;
 };
 
 // `extern` is used to declare the variables here, without defining them
@@ -102,6 +127,11 @@ extern const Rook WHITE_ROOK;
 extern const Rook BLACK_ROOK;
 extern const Pawn WHITE_PAWN;
 extern const Pawn BLACK_PAWN;
-extern const map<UTF8CodePoint, const ChessPiece*> ALL_CHESS_PIECES;
+extern const CowardlyDog WHITE_COURAGE;
+extern const CowardlyDog BLACK_COURAGE;
+extern const DarkKnight WHITE_BATMAN;
+extern const DarkKnight BLACK_BATMAN;
 
-#endif  // _CHESS_PIECES_H_
+extern const map<UTF8CodePoint, const ChessPiece *> ALL_CHESS_PIECES;
+
+#endif // _CHESS_PIECES_H_

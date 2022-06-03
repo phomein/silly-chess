@@ -180,19 +180,19 @@ void test_players()
 }
 
 
-int main()
-{
-    try
-    {
-        test_is_opposite_team();
-        test_piece_identity();
-        test_get_and_make_moves();
-        test_board();
-        test_players();
-    }
-    catch (UnitTestException& e)
-    {
-        cerr << "Unit test(s) failed!\n" << e.what() << endl;
-    }
-    return 0;
-}
+// int main()
+// {
+//     try
+//     {
+//         test_is_opposite_team();
+//         test_piece_identity();
+//         test_get_and_make_moves();
+//         test_board();
+//         test_players();
+//     }
+//     catch (UnitTestException& e)
+//     {
+//         cerr << "Unit test(s) failed!\n" << e.what() << endl;
+//     }
+//     return 0;
+// }
