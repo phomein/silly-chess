@@ -346,10 +346,10 @@ const Rook WHITE_ROOK(U'♖', WHITE);
 const Rook BLACK_ROOK(U'♜', BLACK);
 const Pawn WHITE_PAWN(U'♙', WHITE, 1);
 const Pawn BLACK_PAWN(U'♟', BLACK, -1);
-extern const CowardlyDog WHITE_COURAGE(U'♢', WHITE, 1);
-extern const CowardlyDog BLACK_COURAGE(U'♦', BLACK, -1);
-extern const DarkKnight WHITE_BATMAN(U'☺', WHITE);
-extern const DarkKnight BLACK_BATMAN(U'☻', BLACK);
+const CowardlyDog WHITE_COURAGE(U'♢', WHITE, 1);
+const CowardlyDog BLACK_COURAGE(U'♦', BLACK, -1);
+const DarkKnight WHITE_BATMAN(U'☺', WHITE);
+const DarkKnight BLACK_BATMAN(U'☻', BLACK);
 
 const map<UTF8CodePoint, const ChessPiece *> ALL_CHESS_PIECES = {
     {EMPTY_SPACE.utf8_codepoint, &EMPTY_SPACE},
