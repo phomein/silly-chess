@@ -76,11 +76,6 @@ istream& operator>>(istream& is, Move& move)
     return is >> move.from >> move.to;
 }
 
-Board::Board()
-{
-    reset_board();
-}
-
 const ChessPiece& Board::operator[](Cell cell) const
 {
     return *board[cell.y][cell.x];
@@ -88,18 +83,18 @@ const ChessPiece& Board::operator[](Cell cell) const
 
 void Board::reset_board()
 {
-    for (int y = 0; y < 8; ++y)
+    for (int y = 0; y < rows; ++y)
     {
-        for (int x = 0; x < 8; ++x)
+        for (int x = 0; x < cols; ++x)
         {
             board[y][x] = &EMPTY_SPACE;
         }
     }
 
-    for (int x = 0; x < 8; ++x)
+    for (int x = 0; x < cols; ++x)
     {
         board[1][x] = &WHITE_PAWN;
-        board[6][x] = &BLACK_PAWN;
+        board[rows - 2][x] = &BLACK_PAWN;
     }
 
     board[0][0] = &WHITE_ROOK;
