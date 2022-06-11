@@ -18,6 +18,7 @@ using std::runtime_error;
 using std::string;
 using std::stringstream;
 using std::vector;
+using std::streampos;
 
 const char* team_name(Team team)
 {
@@ -76,6 +77,12 @@ istream& operator>>(istream& is, Move& move)
     return is >> move.from >> move.to;
 }
 
+Board::Board()
+{
+    board.resize(rows, vector<const ChessPiece* >(cols));
+    reset_board();
+}
+
 const ChessPiece& Board::operator[](Cell cell) const
 {
     return *board[cell.y][cell.x];
@@ -94,7 +101,7 @@ void Board::reset_board()
     for (int x = 0; x < cols; ++x)
     {
         board[1][x] = &WHITE_PAWN;
-        board[rows - 2][x] = &BLACK_PAWN;
+        board[6][x] = &BLACK_PAWN;
     }
 
     board[0][0] = &WHITE_ROOK;
@@ -121,9 +128,9 @@ void Board::reset_board()
 vector<Move> Board::get_moves() const
 {
     vector<Move> moves;
-    for (int y = 0; y < 8; ++y)
+    for (int y = 0; y < rows; ++y)
     {
-        for (int x = 0; x < 8; ++x)
+        for (int x = 0; x < cols; ++x)
         {
             if (board[y][x]->team == current_teams_turn)
             {
@@ -175,9 +182,9 @@ bool Board::contains(Cell cell) const
 Team Board::winner() const
 {
     bool found_white_king = false, found_black_king = false;
-    for (int y = 0; y < 8; ++y)
+    for (int y = 0; y < rows; ++y)
     {
-        for (int x = 0; x < 8; ++x)
+        for (int x = 0; x < cols; ++x)
         {
             if (board[y][x] == &WHITE_KING)
             {
@@ -202,17 +209,31 @@ Team Board::winner() const
 
 ostream& operator<<(ostream& os, const Board& board)
 {
-    os << "   abcdefgh\n";
-    for (int y = 7; y >= 0; --y)
+    os << "   ";
+    for (int i = 0; i < board.cols; ++i)
     {
-        os << ' ' << (y + 1) << ' ';
-        for (int x = 0; x < 8; ++x)
+        os << static_cast<char>(i + 'a');
+    }
+    os << endl;
+    for (int y = board.rows - 1; y >= 0; --y)
+    {
+        if (y < 10 - 1)
+        {
+            os << ' ';
+        }
+        os << (y + 1) << ' ';
+        for (int x = 0; x < board.cols; ++x)
         {
             os << board[Cell(x, y)];
         }
         os << ' ' << (y + 1) << endl;
     }
-    os << "   abcdefgh\n";
+    os << "   ";
+    for (int i = 0; i < board.cols; ++i)
+    {
+        os << static_cast<char>(i + 'a');
+    }
+    os << endl;
     return os;
 }
 
@@ -220,11 +241,28 @@ istream& operator>>(istream& is, Board& board)
 {
     string begline;
     getline(is, begline);
-    if (begline != "   abcdefgh")
+    if (begline.find("   ab") == string::npos)
     {
         throw runtime_error("First row of chess board input does not match expected headers!");
     }
-    for (int y = 7; y >= 0; --y)
+    board.cols = begline.size() - 3;  // 3 spaces at beginning 
+    
+    streampos cur = is.tellg();  // save cur pos at beginning of line
+    char num_char_tens = is.get();
+    char num_char_ones = is.get();
+    string rows_str;
+    rows_str.push_back(num_char_tens);
+    if (rows_str == " ")
+    {
+        rows_str.pop_back();
+    }
+    rows_str.push_back(num_char_ones);
+    board.rows = std::stoi(rows_str);
+    board.board.clear();
+    board.board.resize(board.rows, vector<const ChessPiece* >(board.cols));
+    is.seekg(cur, is.beg);
+
+    for (int y = board.rows - 1; y >= 0; --y)
     {
         char beg_buf[3]{};
         is.read(beg_buf, sizeof(beg_buf));
@@ -232,7 +270,7 @@ istream& operator>>(istream& is, Board& board)
         {
             throw runtime_error("Failed to read beginning of chess board row!");
         }
-        for (int x = 0; x < 8; ++x)
+        for (int x = 0; x < board.cols; ++x)
         {
             UTF8CodePoint piece;
             is >> piece;

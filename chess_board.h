@@ -53,17 +53,13 @@ istream& operator>>(istream& is, Move& move);
 
 class Board
 {
-    vector<vector<const ChessPiece* >> board;
-    int rows;
-    int cols;
+    int rows = 8;
+    int cols = 8;
+    vector<vector<const ChessPiece* > > board;
     Team current_teams_turn;
 
 public:
-    Board() = default;
-    Board(int rows, int cols) : rows(rows), cols(cols)
-    {
-        reset_board();
-    }
+    Board();
     const ChessPiece& operator[](Cell cell) const;
     // Reset all the pieces on the board (as if you're starting a new game).
     void reset_board();
